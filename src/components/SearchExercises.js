@@ -16,7 +16,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
     };
 
     fetchExercisesData();
-  }, []);
+  }, [setExercises]);
 
   const handleSearch = async () => {
     if (search) {
