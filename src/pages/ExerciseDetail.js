@@ -35,7 +35,7 @@ const ExerciseDetail = () => {
     };
 
     fetchExercisesData();
-  }, [id]);
+  }, [id, setExerciseDetail, setExerciseVideos, setTargetMuscleExercises, setEquipmentExercises]);
 
   if (!exerciseDetail) return <div>No Data</div>;
 
