@@ -15,27 +15,37 @@ const ExerciseDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    const fetchExercisesData = async () => {
-      const exerciseDbUrl = 'https://exercisedb.p.rapidapi.com';
-      const youtubeSearchUrl = 'https://youtube-search-and-download.p.rapidapi.com';
+  const fetchExercisesData = async () => {
+    const exerciseDbUrl = 'https://exercisedb.p.rapidapi.com';
+    const youtubeSearchUrl = 'https://youtube-search-and-download.p.rapidapi.com';
 
-      const exerciseDetailData = await fetchData(`${exerciseDbUrl}/exercises/exercise/${id}`, exerciseOptions);
-      setExerciseDetail(exerciseDetailData);
+    // Fetch the exercise details
+    const exerciseDetailData = await fetchData(`${exerciseDbUrl}/exercises/exercise/${id}`, exerciseOptions);
+    setExerciseDetail(exerciseDetailData);
 
+    // Fetch videos only if exerciseDetailData is available
+    if (exerciseDetailData.name) {
       const exerciseVideosData = await fetchData(`${youtubeSearchUrl}/search?query=${exerciseDetailData.name} exercise`, youtubeOptions);
       setExerciseVideos(exerciseVideosData.contents);
+    }
 
+    // Fetch target muscle exercises only if exerciseDetailData is available
+    if (exerciseDetailData.target) {
       const targetMuscleExercisesData = await fetchData(`${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`, exerciseOptions);
       setTargetMuscleExercises(targetMuscleExercisesData);
+    }
 
+    // Fetch equipment exercises only if exerciseDetailData is available
+    if (exerciseDetailData.equipment) {
       const equimentExercisesData = await fetchData(`${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}`, exerciseOptions);
       setEquipmentExercises(equimentExercisesData);
-    };
+    }
+  };
 
-    fetchExercisesData();
-  }, [id, setExerciseDetail, setExerciseVideos, setTargetMuscleExercises, setEquipmentExercises]);
+  fetchExercisesData();
+}, [id]);
 
   if (!exerciseDetail) return <div>No Data</div>;
 
