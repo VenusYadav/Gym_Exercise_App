@@ -60,6 +60,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
       sx={{
         backgroundColor: "white", // White background
         "& .MuiPaginationItem-root": {
+          margin: "0 8px",
           color: "#FF2625", // Orange content color for pagination items
           border: "1px solid black", // Black border (gap color)
         },
@@ -69,10 +70,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         },
         "& .MuiPaginationItem-previous, & .MuiPaginationItem-next": {
           color: "white", // White color for the arrow buttons
-        },
-        "& .MuiPaginationItem-root": {
-          margin: "0 8px", // Gap between the buttons
-        },
+        }
       }}
     />
   )}
